@@ -1,0 +1,318 @@
+﻿/* Healthcare Management System - Core Design System */
+
+:root {
+    --color-primary: #044511;
+    --color-primary-hover: #065e17;
+    --color-primary-active: #03320c;
+    --color-secondary: #C8D6B8;
+    --color-secondary-light: #e4ebe0;
+    --color-bg: #f6f8f5;
+    --color-surface: #ffffff;
+    --color-border: #d1ddd0;
+    --color-border-focus: #044511;
+    --color-text: #1a261c;
+    --color-text-muted: #526354;
+    --color-text-light: #718273;
+    
+    --color-error: #842029;
+    --color-error-bg: #f8d7da;
+    --color-error-border: #f5c2c7;
+    
+    --color-success: #0f5132;
+    --color-success-bg: #d1e7dd;
+    --color-success-border: #badbcc;
+    
+    --color-info: #055160;
+    --color-info-bg: #cff4fc;
+    --color-info-border: #b6effb;
+
+    --font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --radius-sm: 3px;
+    --radius-md: 4px;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header & Navigation */
+.app-header {
+    background-color: var(--color-primary);
+    color: #ffffff;
+    border-bottom: 2px solid var(--color-secondary);
+}
+
+.header-container {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0.85rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brand-link {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+.brand-link:hover {
+    color: var(--color-secondary);
+}
+
+.header-nav {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.nav-link {
+    color: var(--color-secondary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 0.35rem 0.65rem;
+    border-radius: var(--radius-sm);
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.nav-link:hover {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.nav-link.active {
+    color: #ffffff;
+    background-color: rgba(200, 214, 184, 0.25);
+    font-weight: 600;
+}
+
+.user-greeting {
+    font-size: 0.88rem;
+    color: var(--color-secondary);
+    margin-right: 0.5rem;
+}
+
+/* Main Content Area */
+.app-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-container {
+    max-width: 1080px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+    flex: 1;
+}
+
+/* Messages & Alerts */
+.messages-container {
+    margin-bottom: 1.5rem;
+}
+
+.alert {
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.88rem;
+    margin-bottom: 0.75rem;
+    border: 1px solid transparent;
+}
+
+.alert-error {
+    background-color: var(--color-error-bg);
+    color: var(--color-error);
+    border-color: var(--color-error-border);
+}
+
+.alert-success {
+    background-color: var(--color-success-bg);
+    color: var(--color-success);
+    border-color: var(--color-success-border);
+}
+
+.alert-info {
+    background-color: var(--color-info-bg);
+    color: var(--color-info);
+    border-color: var(--color-info-border);
+}
+
+/* Authentication Cards */
+.auth-card-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 1.5rem 0;
+}
+
+.auth-card {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-top: 3px solid var(--color-primary);
+    border-radius: var(--radius-md);
+    width: 100%;
+    max-width: 440px;
+    padding: 2rem;
+}
+
+.auth-card-header {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.auth-title {
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: 0.35rem;
+}
+
+.auth-subtitle {
+    font-size: 0.88rem;
+    color: var(--color-text-muted);
+}
+
+/* Form Controls */
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.15rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.form-label {
+    font-size: 0.86rem;
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.55rem 0.75rem;
+    font-size: 0.92rem;
+    font-family: inherit;
+    color: var(--color-text);
+    background-color: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--color-border-focus);
+    box-shadow: 0 0 0 2px rgba(4, 69, 17, 0.18);
+}
+
+.form-input::placeholder {
+    color: var(--color-text-light);
+}
+
+.field-help {
+    font-size: 0.78rem;
+    color: var(--color-text-muted);
+}
+
+.field-error {
+    font-size: 0.8rem;
+    color: var(--color-error);
+    margin-top: 0.15rem;
+}
+
+.field-error span {
+    display: block;
+}
+
+/* Buttons */
+.form-actions {
+    margin-top: 0.5rem;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: inherit;
+    font-size: 0.92rem;
+    font-weight: 600;
+    padding: 0.65rem 1.25rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid transparent;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.btn-primary {
+    background-color: var(--color-primary);
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background-color: var(--color-primary-hover);
+}
+
+.btn-primary:active {
+    background-color: var(--color-primary-active);
+}
+
+.btn-block {
+    width: 100%;
+}
+
+/* Links & Footer */
+.auth-card-footer {
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--color-secondary-light);
+    text-align: center;
+    font-size: 0.86rem;
+    color: var(--color-text-muted);
+}
+
+.link-secondary {
+    color: var(--color-primary);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.link-secondary:hover {
+    text-decoration: underline;
+}
+
+.app-footer {
+    background-color: #ffffff;
+    border-top: 1px solid var(--color-border);
+    margin-top: auto;
+}
+
+.footer-container {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+}
