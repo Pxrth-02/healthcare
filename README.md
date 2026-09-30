@@ -14,6 +14,9 @@ The Healthcare Management System is a clinical administration platform providing
 - Token Authentication: djangorestframework-simplejwt
 - Configuration Management: python-decouple
 - Database Engine: PostgreSQL 16+ via psycopg2-binary
+- Production Server: Gunicorn (WSGI HTTP Server)
+- Static File Handling: WhiteNoise (with compression)
+- Database URL Parser: dj-database-url
 - Frontend: Django Templates, Vanilla HTML5, Custom CSS
 - Typography: Open Sans (Google Fonts)
 - Color Palette: Deep Forest Green (#044511) and Soft Sage Green (#C8D6B8)
@@ -114,6 +117,24 @@ The application will be accessible at:
 - Web Application: http://127.0.0.1:8000/
 - Admin Portal: http://127.0.0.1:8000/admin/
 - API Root: http://127.0.0.1:8000/api/
+
+### Production Deployment on Render
+1. Create a new PostgreSQL Database on Render:
+   - Go to Render Dashboard -> New -> PostgreSQL.
+   - Note the Internal Database URL (or connection details).
+
+2. Create a new Web Service on Render:
+   - Go to Render Dashboard -> New -> Web Service.
+   - Connect your GitHub repository.
+   - Environment: Python 3
+   - Build Command: `./build.sh`
+   - Start Command: `gunicorn config.wsgi:application`
+
+3. Configure Environment Variables in Render Dashboard:
+   - `SECRET_KEY`: Set to a strong random production key.
+   - `DEBUG`: `False`
+   - `DATABASE_URL`: Set to the Internal Database URL from step 1.
+   - `ALLOWED_HOSTS`: `localhost,127.0.0.1` (Render automatically appends your `.onrender.com` domain via `RENDER_EXTERNAL_HOSTNAME`).
 
 ---
 
