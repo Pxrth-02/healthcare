@@ -270,6 +270,11 @@ body {
     text-align: right;
 }
 
+.text-muted-sm {
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+}
+
 .table-actions {
     white-space: nowrap;
 }
@@ -303,6 +308,28 @@ body {
 
 .btn-delete:hover {
     background-color: #f1b0b7;
+}
+
+/* Badges */
+.badge-specialization {
+    display: inline-block;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    background-color: var(--color-secondary-light);
+    border: 1px solid var(--color-secondary);
+    padding: 0.18rem 0.45rem;
+    border-radius: var(--radius-sm);
+}
+
+.badge-readonly {
+    display: inline-block;
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    background-color: #f1f4f0;
+    border: 1px solid var(--color-border);
+    padding: 0.18rem 0.45rem;
+    border-radius: var(--radius-sm);
 }
 
 /* Empty State */
@@ -415,6 +442,13 @@ body {
     outline: none;
     border-color: var(--color-border-focus);
     box-shadow: 0 0 0 2px rgba(4, 69, 17, 0.18);
+}
+
+.form-input-readonly {
+    background-color: #f2f5f1;
+    color: var(--color-text-muted);
+    cursor: not-allowed;
+    border-color: #d8e2d7;
 }
 
 .form-input::placeholder {

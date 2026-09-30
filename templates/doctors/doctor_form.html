@@ -1,0 +1,121 @@
+﻿{% extends 'base.html' %}
+
+{% block title %}{{ title }} - Healthcare Management{% endblock %}
+
+{% block content %}
+<div class="auth-card-wrapper">
+    <div class="auth-card form-card-wide">
+        <div class="auth-card-header">
+            <h1 class="auth-title">{{ title }}</h1>
+            <p class="auth-subtitle">
+                {% if doctor %}
+                    Update clinical profile for Dr. {{ doctor.name }}
+                {% else %}
+                    Register a new physician profile in the medical directory
+                {% endif %}
+            </p>
+        </div>
+
+        <form method="post" class="auth-form" novalidate>
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+                <div class="alert alert-error">
+                    {% for error in form.non_field_errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {% if doctor %}
+                <div class="form-group">
+                    <label class="form-label">Profile Creator (Read-only)</label>
+                    <input type="text" class="form-input form-input-readonly" value="{{ doctor.created_by.name }} ({{ doctor.created_by.email }})" readonly disabled>
+                    <span class="field-help">This record was created by this practitioner and cannot be reassigned.</span>
+                </div>
+            {% endif %}
+
+            <div class="form-group">
+                <label for="{{ form.name.id_for_label }}" class="form-label">Doctor Name</label>
+                {{ form.name }}
+                {% if form.name.errors %}
+                    <div class="field-error">
+                        {% for error in form.name.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="form-row">
+                <div class="form-group form-col">
+                    <label for="{{ form.specialization.id_for_label }}" class="form-label">Specialization</label>
+                    {{ form.specialization }}
+                    {% if form.specialization.errors %}
+                        <div class="field-error">
+                            {% for error in form.specialization.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group form-col">
+                    <label for="{{ form.experience_years.id_for_label }}" class="form-label">Experience (Years)</label>
+                    {{ form.experience_years }}
+                    {% if form.experience_years.errors %}
+                        <div class="field-error">
+                            {% for error in form.experience_years.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group form-col">
+                    <label for="{{ form.age.id_for_label }}" class="form-label">Age</label>
+                    {{ form.age }}
+                    {% if form.age.errors %}
+                        <div class="field-error">
+                            {% for error in form.age.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group form-col">
+                    <label for="{{ form.gender.id_for_label }}" class="form-label">Gender</label>
+                    {{ form.gender }}
+                    {% if form.gender.errors %}
+                        <div class="field-error">
+                            {% for error in form.gender.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.phone.id_for_label }}" class="form-label">Contact Phone</label>
+                {{ form.phone }}
+                {% if form.phone.errors %}
+                    <div class="field-error">
+                        {% for error in form.phone.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="form-actions-row">
+                <button type="submit" class="btn btn-primary">{{ button_text|default:'Save' }}</button>
+                <a href="{% url 'doctor-list' %}" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

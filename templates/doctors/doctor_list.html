@@ -1,0 +1,73 @@
+﻿{% extends 'base.html' %}
+
+{% block title %}Doctors - Healthcare Management{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Doctor Directory</h1>
+        <p class="page-subtitle">Medical practitioner directory across the healthcare network</p>
+    </div>
+    <div>
+        <a href="{% url 'doctor-create' %}" class="btn btn-primary">+ Add Doctor</a>
+    </div>
+</div>
+
+<div class="table-card">
+    {% if doctors %}
+        <div class="table-responsive">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Doctor Name</th>
+                        <th>Specialization</th>
+                        <th>Experience</th>
+                        <th>Age</th>
+                        <th>Gender</th>
+                        <th>Phone</th>
+                        <th>Created By</th>
+                        <th class="text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for doctor in doctors %}
+                        <tr>
+                            <td class="font-semibold">Dr. {{ doctor.name }}</td>
+                            <td>
+                                <span class="badge-specialization">{{ doctor.specialization }}</span>
+                            </td>
+                            <td>{{ doctor.experience_years }} yr{{ doctor.experience_years|pluralize }}</td>
+                            <td>{{ doctor.age }}</td>
+                            <td>
+                                {% if doctor.gender == 'M' %}Male
+                                {% elif doctor.gender == 'F' %}Female
+                                {% else %}Other{% endif %}
+                            </td>
+                            <td>{{ doctor.phone }}</td>
+                            <td>
+                                <span class="text-muted-sm">{{ doctor.created_by.name|default:doctor.created_by.email }}</span>
+                            </td>
+                            <td class="text-right table-actions">
+                                {% if doctor.created_by == request.user %}
+                                    <a href="{% url 'doctor-edit' doctor.id %}" class="btn-action btn-edit">Edit</a>
+                                    <a href="{% url 'doctor-delete' doctor.id %}" class="btn-action btn-delete">Delete</a>
+                                {% else %}
+                                    <span class="badge-readonly">Read Only</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="empty-state">
+            <p class="empty-title">No doctor profiles found</p>
+            <p class="empty-subtitle">There are currently no doctor records registered in the system directory.</p>
+            <div class="empty-action">
+                <a href="{% url 'doctor-create' %}" class="btn btn-primary">Add First Doctor</a>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
