@@ -1,4 +1,4 @@
-﻿from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model
 from django.test import Client, TestCase
 from django.urls import reverse
 from rest_framework import status
@@ -79,25 +79,25 @@ class BrowserAuthTests(TestCase):
 
     def test_register_post_success(self):
         data = {
-            'name': 'Michan',
-            'email': 'michan@gmail.com',
+            'name': 'Michan Browser',
+            'email': 'browser_reg@gmail.com',
             'password': 'michan123',
             'confirm_password': 'michan123'
         }
         response = self.client.post(self.register_url, data)
         self.assertRedirects(response, self.login_url)
-        self.assertTrue(User.objects.filter(email='michan@gmail.com').exists())
+        self.assertTrue(User.objects.filter(email='browser_reg@gmail.com').exists())
 
     def test_register_post_password_mismatch(self):
         data = {
-            'name': 'Michan',
-            'email': 'michan@gmail.com',
+            'name': 'Michan Browser',
+            'email': 'browser_mismatch@gmail.com',
             'password': 'michan123',
             'confirm_password': 'mismatchpassword'
         }
         response = self.client.post(self.register_url, data)
         self.assertEqual(response.status_code, 200)
-        self.assertFalse(User.objects.filter(email='michan@gmail.com').exists())
+        self.assertFalse(User.objects.filter(email='browser_mismatch@gmail.com').exists())
 
     def test_login_get(self):
         response = self.client.get(self.login_url)
@@ -106,12 +106,12 @@ class BrowserAuthTests(TestCase):
 
     def test_login_post_success(self):
         User.objects.create_user(
-            email='michan@gmail.com',
+            email='browser_login@gmail.com',
             name='Michan',
             password='michan123'
         )
         data = {
-            'email': 'michan@gmail.com',
+            'email': 'browser_login@gmail.com',
             'password': 'michan123'
         }
         response = self.client.post(self.login_url, data)
@@ -129,7 +129,7 @@ class BrowserAuthTests(TestCase):
 
     def test_logout(self):
         user = User.objects.create_user(
-            email='michan@gmail.com',
+            email='browser_logout@gmail.com',
             name='Michan',
             password='michan123'
         )

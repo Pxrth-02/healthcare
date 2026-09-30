@@ -1,4 +1,4 @@
-﻿from django import forms
+from django import forms
 from doctors.models import Doctor
 from .models import PatientDoctorMapping
 

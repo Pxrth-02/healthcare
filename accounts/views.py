@@ -1,4 +1,4 @@
-﻿from django.conf import settings
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.shortcuts import redirect, render

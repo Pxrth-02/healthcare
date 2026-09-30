@@ -1,4 +1,4 @@
-﻿from datetime import timedelta
+from datetime import timedelta
 from pathlib import Path
 from decouple import config, Csv
 
@@ -65,6 +65,16 @@ DATABASES = {
         'PORT': config('DB_PORT', default='5432'),
     }
 }
+
+import sys
+if 'test' in sys.argv:
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'test_db.sqlite3',
+    }
+    PASSWORD_HASHERS = [
+        'django.contrib.auth.hashers.MD5PasswordHasher',
+    ]
 
 AUTH_USER_MODEL = 'accounts.User'
 

@@ -1,4 +1,4 @@
-﻿from rest_framework import serializers
+from rest_framework import serializers
 from doctors.models import Doctor
 from patients.models import Patient
 from .models import PatientDoctorMapping

@@ -1,4 +1,4 @@
-﻿from django.db import models
+from django.db import models
 from patients.models import Patient
 from doctors.models import Doctor
 
