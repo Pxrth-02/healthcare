@@ -1,0 +1,99 @@
+﻿{% extends 'base.html' %}
+
+{% block title %}{{ title }} - Healthcare Management{% endblock %}
+
+{% block content %}
+<div class="auth-card-wrapper">
+    <div class="auth-card form-card-wide">
+        <div class="auth-card-header">
+            <h1 class="auth-title">{{ title }}</h1>
+            <p class="auth-subtitle">
+                {% if patient %}
+                    Update clinical record for {{ patient.name }}
+                {% else %}
+                    Enter patient details to create a new clinical record
+                {% endif %}
+            </p>
+        </div>
+
+        <form method="post" class="auth-form" novalidate>
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+                <div class="alert alert-error">
+                    {% for error in form.non_field_errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <div class="form-group">
+                <label for="{{ form.name.id_for_label }}" class="form-label">Full Name</label>
+                {{ form.name }}
+                {% if form.name.errors %}
+                    <div class="field-error">
+                        {% for error in form.name.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.email.id_for_label }}" class="form-label">Email Address</label>
+                {{ form.email }}
+                {% if form.email.errors %}
+                    <div class="field-error">
+                        {% for error in form.email.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="form-row">
+                <div class="form-group form-col">
+                    <label for="{{ form.age.id_for_label }}" class="form-label">Age</label>
+                    {{ form.age }}
+                    {% if form.age.errors %}
+                        <div class="field-error">
+                            {% for error in form.age.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group form-col">
+                    <label for="{{ form.gender.id_for_label }}" class="form-label">Gender</label>
+                    {{ form.gender }}
+                    {% if form.gender.errors %}
+                        <div class="field-error">
+                            {% for error in form.gender.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.phone.id_for_label }}" class="form-label">Phone Number</label>
+                {{ form.phone }}
+                {% if form.phone.errors %}
+                    <div class="field-error">
+                        {% for error in form.phone.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="form-actions-row">
+                <button type="submit" class="btn btn-primary">{{ button_text|default:'Save' }}</button>
+                <a href="{% url 'patient-list' %}" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -123,6 +123,28 @@ body {
     flex: 1;
 }
 
+/* Page Header */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.page-title {
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: var(--color-primary);
+}
+
+.page-subtitle {
+    font-size: 0.88rem;
+    color: var(--color-text-muted);
+    margin-top: 0.25rem;
+}
+
 /* Messages & Alerts */
 .messages-container {
     margin-bottom: 1.5rem;
@@ -154,7 +176,7 @@ body {
     border-color: var(--color-info-border);
 }
 
-/* Authentication Cards */
+/* Cards & Layout */
 .auth-card-wrapper {
     display: flex;
     justify-content: center;
@@ -170,6 +192,10 @@ body {
     width: 100%;
     max-width: 440px;
     padding: 2rem;
+}
+
+.form-card-wide {
+    max-width: 580px;
 }
 
 .auth-card-header {
@@ -189,6 +215,162 @@ body {
     color: var(--color-text-muted);
 }
 
+.text-danger {
+    color: var(--color-error);
+}
+
+/* Tables */
+.table-card {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    text-align: left;
+}
+
+.data-table th {
+    background-color: #f1f5f0;
+    color: var(--color-text);
+    font-weight: 600;
+    padding: 0.75rem 1rem;
+    border-bottom: 2px solid var(--color-border);
+}
+
+.data-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #e8efe7;
+    color: var(--color-text);
+    vertical-align: middle;
+}
+
+.data-table tr:hover {
+    background-color: #fafbfa;
+}
+
+.data-table tr:last-child td {
+    border-bottom: none;
+}
+
+.font-semibold {
+    font-weight: 600;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.table-actions {
+    white-space: nowrap;
+}
+
+.btn-action {
+    display: inline-block;
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 0.25rem 0.55rem;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    margin-left: 0.35rem;
+    transition: background-color 0.15s ease;
+}
+
+.btn-edit {
+    color: var(--color-primary);
+    background-color: var(--color-secondary-light);
+    border: 1px solid var(--color-secondary);
+}
+
+.btn-edit:hover {
+    background-color: #d6e2cf;
+}
+
+.btn-delete {
+    color: var(--color-error);
+    background-color: var(--color-error-bg);
+    border: 1px solid var(--color-error-border);
+}
+
+.btn-delete:hover {
+    background-color: #f1b0b7;
+}
+
+/* Empty State */
+.empty-state {
+    padding: 3rem 1.5rem;
+    text-align: center;
+}
+
+.empty-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: 0.35rem;
+}
+
+.empty-subtitle {
+    font-size: 0.88rem;
+    color: var(--color-text-muted);
+    margin-bottom: 1.25rem;
+}
+
+.empty-action {
+    display: flex;
+    justify-content: center;
+}
+
+/* Delete Confirmation */
+.delete-confirmation-box {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background-color: #fdf5f5;
+    border: 1px solid var(--color-error-border);
+    border-radius: var(--radius-sm);
+}
+
+.confirm-message {
+    font-size: 0.9rem;
+    color: var(--color-text);
+    margin-bottom: 0.75rem;
+}
+
+.patient-preview-badge {
+    background-color: #ffffff;
+    border: 1px solid #e0cece;
+    padding: 0.65rem 0.85rem;
+    border-radius: var(--radius-sm);
+    margin-bottom: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.patient-preview-badge strong {
+    color: var(--color-text);
+    font-size: 0.95rem;
+}
+
+.patient-preview-badge span {
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+}
+
+.warning-text {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-error);
+}
+
 /* Form Controls */
 .auth-form {
     display: flex;
@@ -202,13 +384,22 @@ body {
     gap: 0.35rem;
 }
 
+.form-row {
+    display: flex;
+    gap: 1rem;
+}
+
+.form-col {
+    flex: 1;
+}
+
 .form-label {
     font-size: 0.86rem;
     font-weight: 600;
     color: var(--color-text);
 }
 
-.form-input {
+.form-input, .form-select {
     width: 100%;
     padding: 0.55rem 0.75rem;
     font-size: 0.92rem;
@@ -220,7 +411,7 @@ body {
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-.form-input:focus {
+.form-input:focus, .form-select:focus {
     outline: none;
     border-color: var(--color-border-focus);
     box-shadow: 0 0 0 2px rgba(4, 69, 17, 0.18);
@@ -250,6 +441,12 @@ body {
     margin-top: 0.5rem;
 }
 
+.form-actions-row {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+}
+
 .btn {
     display: inline-flex;
     align-items: center;
@@ -276,6 +473,25 @@ body {
 
 .btn-primary:active {
     background-color: var(--color-primary-active);
+}
+
+.btn-secondary {
+    background-color: #f1f4f0;
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+}
+
+.btn-secondary:hover {
+    background-color: #e5ece3;
+}
+
+.btn-danger {
+    background-color: var(--color-error);
+    color: #ffffff;
+}
+
+.btn-danger:hover {
+    background-color: #721c24;
 }
 
 .btn-block {

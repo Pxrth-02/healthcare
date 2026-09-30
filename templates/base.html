@@ -15,10 +15,11 @@
     <header class="app-header">
         <div class="header-container">
             <div class="header-brand">
-                <a href="{% url 'login' %}" class="brand-link">Healthcare Management</a>
+                <a href="{% if user.is_authenticated %}{% url 'patient-list' %}{% else %}{% url 'login' %}{% endif %}" class="brand-link">Healthcare Management</a>
             </div>
             <nav class="header-nav">
                 {% if user.is_authenticated %}
+                    <a href="{% url 'patient-list' %}" class="nav-link {% if 'patient' in request.resolver_match.url_name %}active{% endif %}">Patients</a>
                     <span class="user-greeting">{{ user.name }}</span>
                     <a href="{% url 'logout' %}" class="nav-link">Log Out</a>
                 {% else %}

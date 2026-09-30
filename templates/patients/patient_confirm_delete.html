@@ -1,0 +1,33 @@
+﻿{% extends 'base.html' %}
+
+{% block title %}Delete Patient - Healthcare Management{% endblock %}
+
+{% block content %}
+<div class="auth-card-wrapper">
+    <div class="auth-card">
+        <div class="auth-card-header">
+            <h1 class="auth-title text-danger">Delete Patient Record</h1>
+            <p class="auth-subtitle">Confirmation required before removal</p>
+        </div>
+
+        <div class="delete-confirmation-box">
+            <p class="confirm-message">
+                Are you sure you want to permanently delete the clinical record for:
+            </p>
+            <div class="patient-preview-badge">
+                <strong>{{ patient.name }}</strong>
+                <span>{{ patient.email }} &bull; Age {{ patient.age }}</span>
+            </div>
+            <p class="warning-text">This action cannot be undone.</p>
+        </div>
+
+        <form method="post" class="auth-form">
+            {% csrf_token %}
+            <div class="form-actions-row">
+                <button type="submit" class="btn btn-danger">Confirm Delete</button>
+                <a href="{% url 'patient-list' %}" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,61 @@
+﻿{% extends 'base.html' %}
+
+{% block title %}Patients - Healthcare Management{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Patient Directory</h1>
+        <p class="page-subtitle">Assigned patient records for your clinical account</p>
+    </div>
+    <div>
+        <a href="{% url 'patient-create' %}" class="btn btn-primary">+ Add Patient</a>
+    </div>
+</div>
+
+<div class="table-card">
+    {% if patients %}
+        <div class="table-responsive">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Age</th>
+                        <th>Gender</th>
+                        <th>Phone</th>
+                        <th class="text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for patient in patients %}
+                        <tr>
+                            <td class="font-semibold">{{ patient.name }}</td>
+                            <td>{{ patient.email }}</td>
+                            <td>{{ patient.age }}</td>
+                            <td>
+                                {% if patient.gender == 'M' %}Male
+                                {% elif patient.gender == 'F' %}Female
+                                {% else %}Other{% endif %}
+                            </td>
+                            <td>{{ patient.phone }}</td>
+                            <td class="text-right table-actions">
+                                <a href="{% url 'patient-edit' patient.id %}" class="btn-action btn-edit">Edit</a>
+                                <a href="{% url 'patient-delete' patient.id %}" class="btn-action btn-delete">Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="empty-state">
+            <p class="empty-title">No patient records found</p>
+            <p class="empty-subtitle">You have not created any patient records under your account yet.</p>
+            <div class="empty-action">
+                <a href="{% url 'patient-create' %}" class="btn btn-primary">Add Patient Record</a>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
