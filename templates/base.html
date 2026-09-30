@@ -19,8 +19,9 @@
             </div>
             <nav class="header-nav">
                 {% if user.is_authenticated %}
-                    <a href="{% url 'patient-list' %}" class="nav-link {% if 'patient' in request.resolver_match.url_name %}active{% endif %}">Patients</a>
+                    <a href="{% url 'patient-list' %}" class="nav-link {% if 'patient' in request.resolver_match.url_name and 'mapping' not in request.resolver_match.url_name %}active{% endif %}">Patients</a>
                     <a href="{% url 'doctor-list' %}" class="nav-link {% if 'doctor' in request.resolver_match.url_name %}active{% endif %}">Doctors</a>
+                    <a href="{% url 'mapping-list' %}" class="nav-link {% if 'mapping' in request.resolver_match.url_name %}active{% endif %}">Mappings</a>
                     <span class="user-greeting">{{ user.name }}</span>
                     <a href="{% url 'logout' %}" class="nav-link">Log Out</a>
                 {% else %}

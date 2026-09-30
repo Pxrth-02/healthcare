@@ -1,0 +1,33 @@
+﻿{% extends 'base.html' %}
+
+{% block title %}Remove Doctor Assignment - Healthcare Management{% endblock %}
+
+{% block content %}
+<div class="auth-card-wrapper">
+    <div class="auth-card">
+        <div class="auth-card-header">
+            <h1 class="auth-title text-danger">Remove Doctor Assignment</h1>
+            <p class="auth-subtitle">Confirmation required before unassigning physician</p>
+        </div>
+
+        <div class="delete-confirmation-box">
+            <p class="confirm-message">
+                Are you sure you want to remove the medical assignment between:
+            </p>
+            <div class="patient-preview-badge">
+                <strong>Patient: {{ mapping.patient.name }}</strong>
+                <span>Assigned Physician: Dr. {{ mapping.doctor.name }} ({{ mapping.doctor.specialization }})</span>
+            </div>
+            <p class="warning-text">This will decouple the patient from this doctor's care record.</p>
+        </div>
+
+        <form method="post" class="auth-form">
+            {% csrf_token %}
+            <div class="form-actions-row">
+                <button type="submit" class="btn btn-danger">Confirm Removal</button>
+                <a href="{% if request.GET.next %}{{ request.GET.next }}{% else %}{% url 'patient-mapping-manage' mapping.patient.id %}{% endif %}" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

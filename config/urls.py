@@ -6,4 +6,5 @@ urlpatterns = [
     path('', include('accounts.urls')),
     path('', include('patients.urls')),
     path('', include('doctors.urls')),
+    path('', include('mappings.urls')),
 ]

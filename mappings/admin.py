@@ -1,3 +1,10 @@
-from django.contrib import admin
+﻿from django.contrib import admin
+from .models import PatientDoctorMapping
 
-# Register your models here.
+
+@admin.register(PatientDoctorMapping)
+class PatientDoctorMappingAdmin(admin.ModelAdmin):
+    list_display = ('id', 'patient', 'doctor', 'assigned_at')
+    list_filter = ('assigned_at',)
+    search_fields = ('patient__name', 'doctor__name')
+    readonly_fields = ('assigned_at',)

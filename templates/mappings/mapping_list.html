@@ -1,0 +1,61 @@
+﻿{% extends 'base.html' %}
+
+{% block title %}Patient-Doctor Mappings - Healthcare Management{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Patient &bull; Doctor Mappings</h1>
+        <p class="page-subtitle">Overview of physician assignments for all patients under your care</p>
+    </div>
+    <div>
+        <a href="{% url 'patient-list' %}" class="btn btn-primary">Go to Patients Directory</a>
+    </div>
+</div>
+
+<div class="table-card">
+    {% if mappings %}
+        <div class="table-responsive">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Patient Name</th>
+                        <th>Assigned Physician</th>
+                        <th>Specialization</th>
+                        <th>Contact Phone</th>
+                        <th>Assigned Date</th>
+                        <th class="text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for mapping in mappings %}
+                        <tr>
+                            <td class="font-semibold">
+                                <a href="{% url 'patient-mapping-manage' mapping.patient.id %}" class="link-secondary">{{ mapping.patient.name }}</a>
+                            </td>
+                            <td>Dr. {{ mapping.doctor.name }}</td>
+                            <td>
+                                <span class="badge-specialization">{{ mapping.doctor.specialization }}</span>
+                            </td>
+                            <td>{{ mapping.doctor.phone }}</td>
+                            <td class="text-muted-sm">{{ mapping.assigned_at|date:"M d, Y" }}</td>
+                            <td class="text-right table-actions">
+                                <a href="{% url 'patient-mapping-manage' mapping.patient.id %}" class="btn-action btn-edit">Manage</a>
+                                <a href="{% url 'mapping-delete' mapping.id %}?next={% url 'mapping-list' %}" class="btn-action btn-delete">Remove</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="empty-state">
+            <p class="empty-title">No active assignments found</p>
+            <p class="empty-subtitle">You have not assigned any doctors to your patients yet.</p>
+            <div class="empty-action">
+                <a href="{% url 'patient-list' %}" class="btn btn-primary">View Patients Directory</a>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

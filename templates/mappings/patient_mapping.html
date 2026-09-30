@@ -1,0 +1,114 @@
+﻿{% extends 'base.html' %}
+
+{% block title %}Manage Doctors for {{ patient.name }} - Healthcare Management{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Doctor Assignments</h1>
+        <p class="page-subtitle">Managing assigned physicians for patient: <strong>{{ patient.name }}</strong></p>
+    </div>
+    <div>
+        <a href="{% url 'patient-list' %}" class="btn btn-secondary">&larr; Back to Patients</a>
+    </div>
+</div>
+
+<div class="patient-summary-card">
+    <div class="summary-item">
+        <span class="summary-label">Patient Name</span>
+        <span class="summary-value font-semibold">{{ patient.name }}</span>
+    </div>
+    <div class="summary-item">
+        <span class="summary-label">Email</span>
+        <span class="summary-value">{{ patient.email }}</span>
+    </div>
+    <div class="summary-item">
+        <span class="summary-label">Age / Gender</span>
+        <span class="summary-value">{{ patient.age }} / {% if patient.gender == 'M' %}Male{% elif patient.gender == 'F' %}Female{% else %}Other{% endif %}</span>
+    </div>
+    <div class="summary-item">
+        <span class="summary-label">Phone</span>
+        <span class="summary-value">{{ patient.phone }}</span>
+    </div>
+</div>
+
+<div class="mapping-grid">
+    <!-- Assign Doctor Section -->
+    <div class="mapping-form-card">
+        <h2 class="section-title">Assign a Doctor</h2>
+        <p class="section-subtitle">Select any physician from the healthcare directory to assign to this patient.</p>
+
+        <form method="post" class="auth-form" novalidate>
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+                <div class="alert alert-error">
+                    {% for error in form.non_field_errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <div class="form-group">
+                <label for="{{ form.doctor.id_for_label }}" class="form-label">Available Physicians</label>
+                {{ form.doctor }}
+                {% if form.doctor.errors %}
+                    <div class="field-error">
+                        {% for error in form.doctor.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary btn-block">Assign Doctor to Patient</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Assigned Doctors Table Section -->
+    <div class="mapping-table-card">
+        <h2 class="section-title">Assigned Doctors ({{ mappings|length }})</h2>
+        <p class="section-subtitle">Physicians currently attending to {{ patient.name }}.</p>
+
+        {% if mappings %}
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Doctor Name</th>
+                            <th>Specialization</th>
+                            <th>Experience</th>
+                            <th>Phone</th>
+                            <th>Assigned Date</th>
+                            <th class="text-right">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for mapping in mappings %}
+                            <tr>
+                                <td class="font-semibold">Dr. {{ mapping.doctor.name }}</td>
+                                <td>
+                                    <span class="badge-specialization">{{ mapping.doctor.specialization }}</span>
+                                </td>
+                                <td>{{ mapping.doctor.experience_years }} yr{{ mapping.doctor.experience_years|pluralize }}</td>
+                                <td>{{ mapping.doctor.phone }}</td>
+                                <td class="text-muted-sm">{{ mapping.assigned_at|date:"M d, Y" }}</td>
+                                <td class="text-right table-actions">
+                                    <a href="{% url 'mapping-delete' mapping.id %}" class="btn-action btn-delete">Remove</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <p class="empty-title">No doctors assigned yet</p>
+                <p class="empty-subtitle">Use the form on the left to assign an attending physician to {{ patient.name }}.</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
